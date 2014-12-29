@@ -416,6 +416,7 @@ static void help(void)
 	   "-b,--buffer	ring buffer size in us\n"
 	   "-p,--period	period size in us\n"
 	   "-P,--nperiods	number of periods\n"
+		 "-l,--length	beep for N milliseconds\n"
 	   "-s,--speaker	single speaker test. Values 1=Left, 2=right, etc\n"
 		 "-d,--debug	enable debug mode\n"
 	   "\n"));
@@ -437,6 +438,7 @@ int main(int argc, char *argv[]) {
   uint8_t              *frames;
   const int	       *fmt;
 	int format_nbytes=0;
+	int beep_length=1000;
 
   static const struct option long_option[] = {
     {"help",      0, NULL, 'h'},
@@ -448,6 +450,7 @@ int main(int argc, char *argv[]) {
     {"buffer",    1, NULL, 'b'},
     {"period",    1, NULL, 'p'},
     {"nperiods",  1, NULL, 'P'},
+		{"length",    1, NULL, 'l'},
     {"speaker",   1, NULL, 's'},
     {"debug",	    0, NULL, 'd'},
     {NULL,        0, NULL, 0  },
@@ -468,7 +471,7 @@ int main(int argc, char *argv[]) {
   while (1) {
     int c;
     
-    if ((c = getopt_long(argc, argv, "he:r:c:f:F:b:p:P:t:s:d", long_option, NULL)) < 0)
+    if ((c = getopt_long(argc, argv, "he:r:c:f:F:b:p:P:l:t:s:d", long_option, NULL)) < 0)
       break;
     
     switch (c) {
@@ -518,6 +521,9 @@ int main(int argc, char *argv[]) {
 	exit(1);
       }
       break;
+		case 'l':
+			beep_length = atoi(optarg);
+			break;
     case 's':
       speaker = atoi(optarg);
       speaker = speaker < 1 ? 0 : speaker;
@@ -598,10 +604,12 @@ int main(int argc, char *argv[]) {
 			;
 	}
 
-	if (debug)
+	if (debug) {
 		printf(_("format_nbytes = %d\n"), format_nbytes);
+		printf(_("beep_length = %d\n"), beep_length);
+	}
 
-	err = write_loop(handle, rate/period_size*format_nbytes, frames);
+	err = write_loop(handle, rate/period_size*format_nbytes*(beep_length/1000.0), frames);
 
 	if (err < 0) {
 		fprintf(stderr, _("Transfer failed: %s\n"), snd_strerror(err));
