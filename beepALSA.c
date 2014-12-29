@@ -408,7 +408,7 @@ static void help(void)
   printf(
 	 _("Usage: speaker-test [OPTION]... \n"
 	   "-h,--help	help\n"
-	   "-D,--device	playback device\n"
+	   "-e,--device	playback device\n"
 	   "-r,--rate	stream rate in Hz\n"
 	   "-c,--channels	count of channels in stream\n"
 	   "-f,--frequency	sine wave frequency in Hz\n"
@@ -440,7 +440,7 @@ int main(int argc, char *argv[]) {
 
   static const struct option long_option[] = {
     {"help",      0, NULL, 'h'},
-    {"device",    1, NULL, 'D'},
+    {"device",    1, NULL, 'e'},
     {"rate",      1, NULL, 'r'},
     {"channels",  1, NULL, 'c'},
     {"frequency", 1, NULL, 'f'},
@@ -468,14 +468,14 @@ int main(int argc, char *argv[]) {
   while (1) {
     int c;
     
-    if ((c = getopt_long(argc, argv, "hD:r:c:f:F:b:p:P:t:s:d", long_option, NULL)) < 0)
+    if ((c = getopt_long(argc, argv, "he:r:c:f:F:b:p:P:t:s:d", long_option, NULL)) < 0)
       break;
     
     switch (c) {
     case 'h':
       morehelp++;
       break;
-    case 'D':
+    case 'e':
       device = strdup(optarg);
       break;
     case 'F':
