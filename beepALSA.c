@@ -598,7 +598,8 @@ int main(int argc, char *argv[]) {
 			;
 	}
 
-	printf(_("format_nbytes = %d\n"), format_nbytes);
+	if (debug)
+		printf(_("format_nbytes = %d\n"), format_nbytes);
 
 	err = write_loop(handle, rate/period_size*format_nbytes, frames);
 
