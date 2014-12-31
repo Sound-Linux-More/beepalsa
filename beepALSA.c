@@ -385,6 +385,9 @@ static int write_loop(snd_pcm_t *handle, int periods, uint8_t *frames)
 
   fflush(stdout);
 
+	if (debug)
+		printf(_("write_loop: periods = %d\n"), periods);
+
   if (periods <= 0)
     periods = 1;
 
