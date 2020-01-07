@@ -451,19 +451,20 @@ static void help(void)
 
     printf(
         _("Usage: speaker-test [OPTION]... \n"
-          "-h,--help    help\n"
-          "-e,--device  playback device\n"
-          "-r,--rate    stream rate in Hz\n"
-          "-c,--channels    count of channels in stream\n"
-          "-f,--frequency   sine wave frequency in Hz\n"
-          "-n,--new         multiple beeps\n"
-          "-F,--format  sample format\n"
-          "-b,--buffer  ring buffer size in us\n"
-          "-p,--period  period size in us\n"
-          "-P,--nperiods    number of periods\n"
-          "-l,--length  beep for N milliseconds\n"
-          "-s,--speaker single speaker test. Values 1=Left, 2=right, etc\n"
-          "-d,--debug   enable debug mode\n"
+          "-h,--help      help\n"
+          "-e,--device    playback device\n"
+          "-r,--rate      stream rate in Hz\n"
+          "-c,--channels  count of channels in stream\n"
+          "-f,--frequency sine wave frequency in Hz\n"
+          "-n,--new       multiple beeps\n"
+          "-d,-D,--delay  delay N milliseconds\n"
+          "-F,--format    sample format\n"
+          "-b,--buffer    ring buffer size in us\n"
+          "-p,--period    period size in us\n"
+          "-P,--nperiods  number of periods\n"
+          "-l,--length    beep for N milliseconds\n"
+          "-s,--speaker   single speaker test. Values 1=Left, 2=right, etc\n"
+          "-v,--verbose   enable debug mode\n"
           "\n"));
     printf(_("Recognized sample formats are:"));
     for (fmt = supported_formats; *fmt >= 0; fmt++)
@@ -498,13 +499,14 @@ int main(int argc, char *argv[])
         {"channels",  1, NULL, 'c'},
         {"frequency", 1, NULL, 'f'},
         {"new",       0, NULL, 'n'},
+        {"delay",     1, NULL, 'd'},
         {"format",    1, NULL, 'F'},
         {"buffer",    1, NULL, 'b'},
         {"period",    1, NULL, 'p'},
         {"nperiods",  1, NULL, 'P'},
         {"length",    1, NULL, 'l'},
         {"speaker",   1, NULL, 's'},
-        {"debug",     0, NULL, 'd'},
+        {"verbose",   0, NULL, 'v'},
         {NULL,        0, NULL, 0  },
     };
 
@@ -524,7 +526,7 @@ int main(int argc, char *argv[])
     {
         int c;
 
-        if ((c = getopt_long(argc, argv, "he:r:c:f:nF:b:p:P:l:t:s:d", long_option, NULL)) < 0)
+        if ((c = getopt_long(argc, argv, "he:r:c:f:nd:D:F:b:p:P:l:t:s:v", long_option, NULL)) < 0)
             break;
 
         switch (c)
@@ -585,6 +587,14 @@ int main(int argc, char *argv[])
             beep_freq_m[beep_count] = freq;
             beep_count++;
             break;
+        case 'd':
+        case 'D':
+            beep_length_m[beep_count] = beep_length;
+            beep_freq_m[beep_count] = freq;
+            beep_count++;
+            freq = 0.0;
+            beep_length = atoi(optarg);
+            break;
         case 's':
             speaker = atoi(optarg);
             speaker = speaker < 1 ? 0 : speaker;
@@ -595,7 +605,7 @@ int main(int argc, char *argv[])
                 exit(EXIT_FAILURE);
             }
             break;
-        case 'd':
+        case 'v':
             debug = 1;
             break;
         default:
