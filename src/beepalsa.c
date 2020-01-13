@@ -490,6 +490,7 @@ int main(int argc, char *argv[])
     int* beep_length_m = (int*)malloc(sizeof(int)*argc);
     double* beep_freq_m = (double*)malloc(sizeof(double)*argc);
     int i, beep_count = 0;
+    double div2 = 0.61803398875;
 
     static const struct option long_option[] =
     {
@@ -699,7 +700,7 @@ int main(int argc, char *argv[])
     {
         beep_length = beep_length_m[i];
         freq = beep_freq_m[i];
-        err = write_loop(handle, rate/period_size*format_nbytes*(beep_length/1000.0), frames);
+        err = write_loop(handle, rate/period_size*format_nbytes*(beep_length*0.001*div2), frames);
 
         if (err < 0)
         {
