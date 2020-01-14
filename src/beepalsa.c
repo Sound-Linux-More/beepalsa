@@ -450,21 +450,21 @@ static void help(void)
     const int *fmt;
 
     printf(
-        _("Usage: speaker-test [OPTION]... \n"
-          "-h,--help      help\n"
+        _("Usage: beepalsa [OPTION]... \n"
           "-e,--device    playback device\n"
           "-r,--rate      stream rate in Hz\n"
           "-c,--channels  count of channels in stream\n"
-          "-f,--frequency sine wave frequency in Hz\n"
-          "-n,--new       multiple beeps\n"
-          "-d,-D,--delay  delay N milliseconds\n"
           "-F,--format    sample format\n"
           "-b,--buffer    ring buffer size in us\n"
           "-p,--period    period size in us\n"
           "-P,--nperiods  number of periods\n"
+          "-f,--frequency sine wave frequency in Hz\n"
           "-l,--length    beep for N milliseconds\n"
+          "-n,--new       multiple beeps\n"
+          "-d,-D,--delay  delay N milliseconds\n"
           "-s,--speaker   single speaker test. Values 1=Left, 2=right, etc\n"
           "-v,--verbose   enable debug mode\n"
+          "-h,--help      help\n"
           "\n"));
     printf(_("Recognized sample formats are:"));
     for (fmt = supported_formats; *fmt >= 0; fmt++)

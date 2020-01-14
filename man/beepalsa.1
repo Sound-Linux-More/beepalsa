@@ -1,0 +1,71 @@
+.TH "BEEPALSA" "1" "2020-01-14" "1.0.27" "User Manual"
+
+.SH NAME
+beepalsa \- ALSA implementation beep
+
+.SH SYNOPSIS
+
+\fBbeepalsa\fR [OPTION]...
+
+.SH DESCRIPTION
+.PP
+ALSA implementation beep speaker player.
+
+.SH OPTIONS
+.TP
+\fB-e\fR,\fB--device\fR
+playback device
+.TP
+\fB-r\fR,\fB--rate\fR
+stream rate in Hz
+.TP
+\fB-c\fR,\fB--channels\fR
+count of channels in stream
+.TP
+\fB-F\fR,\fB--format\fR
+sample format. Recognized sample formats are: S8 S16_LE S16_BE FLOAT_LE S32_LE S32_BE
+.TP
+\fB-b\fR,\fB--buffer\fR
+ring buffer size in us
+.TP
+\fB-p\fR,\fB--period\fR
+period size in us
+.TP
+\fB-P\fR,\fB--nperiods\fR
+number of periods
+.TP
+\fB-f\fR,\fB--frequency\fR
+sine wave frequency in Hz
+.TP
+\fB-l\fR,\fB--length\fR
+beep for N milliseconds
+.TP
+\fB-n\fR,\fB--new\fR
+multiple beeps
+.TP
+\fB-d\fR,\fB-D\fR,\fB--delay\fR
+delay N milliseconds
+.TP
+\fB-s\fR,\fB--speaker\fR
+single speaker test. Values 1=Left, 2=right, etc
+.TP
+\fB-v\fR,\fB--verbose\fR
+enable debug mode
+.TP
+\fB-h\fR,\fB--help\fR
+help
+
+.SH EXAMPLE
+.PP
+\fBbeepalsa\fR -f 659 -l 460 -n -f 784 -l 340 -n -f 659 -l 230 -n -f 659 -l 110 -n -f 880 -l 230 -n -f 659 -l 230 -n -f 587 -l 230 -n -f 659 -l 460 -n -f 988 -l 340 -n -f 659 -l 230 -n -f 659 -l 110 -n -f 1047 -l 230 -n -f 988 -l 230 -n -f 784 -l 230 -n -f 659 -l 230 -n -f 988 -l 230 -n -f 1318 -l 230 -n -f 659 -l 110 -n -f 587 -l 230 -n -f 587 -l 110 -n -f 494 -l 230 -n -f 740 -l 230 -n -f 659 -l 460
+
+.SH AUTHORS
+ Yukimasa Sugizaki
+ James Courtier-Dutton
+ Nathan Hurst
+
+.SH SEE ALSO
+\fBbeep\fR(1), \fBaplay\fR(1)
+
+.SH HOMEPAGE
+https://github.com/Terminus-IMRC/beepALSA
